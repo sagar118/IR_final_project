@@ -46,13 +46,14 @@ def search():
 def language():
     print('Inside')
     text =  request.args.get('query')
-    lang = request.args.get('language')
-    if(lang=="Hindi"):
-        lang="text_hi"
-    elif(lang=="Spanish"):
-        lang="text_es"
+    lang1 = request.args.get('language')
+    lang = ""
+    if(lang1 == "Hindi"):
+        lang = "text_hi"
+    elif(lang1 == "Spanish"):
+        lang  = "text_es"
     else:
-        lang="text_en"
+        lang =  "text_en"
 
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
@@ -72,4 +73,4 @@ def language():
     # print(len(docs))
     # for i in range(len(docs)):
     #     print(docs[i])
-    return render_template('second_page_new.html', data = data, query = text, lang = lang)
+    return render_template('second_page_new.html', data = data, query = text, lang = lang1)
