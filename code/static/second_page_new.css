@@ -53,6 +53,8 @@ li a:hover {
   right: 40px;
   color: rgb(0, 0, 0);
   font-size: 25px;
+  border-color: transparent;
+  background-color: transparent;
 }
 
 /* Fixed sidenav, full height */
