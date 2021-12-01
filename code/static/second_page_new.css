@@ -1,0 +1,158 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.nav>li{
+  float:right;
+}
+#myList {
+  width: 680px;
+}
+#myList>#list_item{
+  padding-top: 20px;
+  border-right: 0px;
+  border-top: solid 1px;
+  border-right: solid 1px;
+  border-left: solid 1px;
+  border-color: #000000;
+  padding-bottom: 20px;
+  border-radius:9px
+}
+#myList>#list_item>a{
+  text-align: left;
+  left: 0px;
+}
+.data{
+  margin-top: 18px;
+}
+.navigation-bar, ul {
+  list-style-type: none;
+  /* display: inline-block; */
+  margin: 0;
+  padding-right: 0;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+}
+
+.nav>li>a {
+  display:block;
+  color:rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color: rgba(139, 86, 50, 0.829);
+  /* background-color: rgb(92, 86, 86); */
+}
+
+.fa-search{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 40px;
+  color: rgb(0, 0, 0);
+  font-size: 25px;
+}
+
+/* Fixed sidenav, full height */
+/* .sidenav {
+    /* height: 50%; 
+    width: 150px;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    /* background-color: #111; 
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 20px;
+  }
+   */
+  /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+   
+  /* On mouse-over */
+  /* .sidenav a:hover, .dropdown-btn:hover {
+    color: rgba(139, 86, 50, 0.829);
+} */
+  
+  /* Main content */
+  /* .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    /* font-size: 20px; 
+    padding: 0px 10px;
+  } 
+   */
+  /* Add an active class to the active dropdown button */
+  /* .active {
+    background-color: green;
+    color: white;
+  } */
+  
+  
+/* .dropdown-container {
+    display: none;
+    background-color: #ffffff;
+    padding-left: 5px;
+}
+  
+  /* Optional: Style the caret down icon 
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+  /* Some media queries for responsiveness 
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+} */
+/* .data, ul{
+  text-align: center;
+} */
+.search_box{
+    width: 50%;
+    position:relative;
+    padding-left: 25%;
+    
+}
+
+.search_box input[type="text"]{
+  width: 100%;
+  padding: 20px;
+  padding-right: 60px;
+  box-sizing: border-box;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  font-size: 18px;
+  color:rgb(0, 0, 0);
+  outline: none;
+}
+
+.wrapper{
+  width: 150px;
+  float: left;
+  position: relative;
+
+}
+.myList{
+  width: min-content;
+}
+.maindata{
+  /* margin-left: 150px; */
+  float:left;
+}

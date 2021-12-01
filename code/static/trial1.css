@@ -1,0 +1,115 @@
+/* @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+.select-box {
+    cursor: pointer;
+    background-color: transparent;
+    position : relative;
+    max-width:  20em;
+    margin: 5em auto;
+    width: 100%;
+  }
+  
+  .select,
+  .label {
+    display: block;
+    font: 400 17px/2em 'Source Sans Pro', sans-serif;
+  }
+  
+  .select {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 5px 0;
+    height: 40px;
+    opacity: 0;
+    /* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; 
+    background: none transparent;
+    border: 0 none;
+  }
+  .select-box1 {
+    background: #ececec;
+  }
+  
+  .label {
+    position: relative;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .open label::after {
+     content: "▲";
+  }
+  label::after {
+    content: "▼";
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 15px;
+    border-left: 5px solid #fff;
+  } */
+  .selectdiv label select option{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  }
+  .selectdiv {
+    position: relative;    
+    min-width: 150px;
+    width: 150px;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    /* background-color: #111; */
+    overflow-x: hidden;
+  }
+  
+  select::-ms-expand {
+  display: block;
+  }
+  
+  .selectdiv:after {
+    content: '<>';
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 11px;
+    /*Adjust for position however you want*/
+    
+    top: 18px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    /*left line */
+    
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .selectdiv select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some styling */
+    
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: 50px;
+    float: right;
+    margin: 5px 0px;
+    padding: 0px 24px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+  }
+  

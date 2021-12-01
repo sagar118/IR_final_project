@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static',filename='first_page.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"> integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
+<head>
+    <style>
+        body,input{font-family: "Raleway", sans-serif}
+    </style>
+    <title>500Success</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="navigation-bar">
+    <ul>
+        <li id="nav"><a href="#overview">Overview Analysis</a></li>
+        <li id="nav2"><a class="active" href="{{ url_for('home') }}">Home</a></li>
+        <img src="{{ url_for('static',filename='logo_used.png') }}" height="50" width="130">
+      </ul>
+      </div>
+
+      <div class="bgimg-1" id="bg_img">
+          <div class= "search_box">
+              <form action="{{ url_for('search') }}" method="get" id="search_form">
+              <input type="text" name="query" placeholder=" what are you looking for?">
+              <!-- <div onclick="submit_form()"> -->
+               <button class="fas fa-search"></button>
+               
+              <!-- </div> -->
+              </form>
+          </div>
+      </div>
+     
+<script>
+// function submit_form(){
+//     const myForm = document.getElementById("search_form");
+//     document.querySelector(".submit").addEventListener("click", function(){
+//     myForm.submit();
+//     });
+// }
+</script>
+</body>
+</html>

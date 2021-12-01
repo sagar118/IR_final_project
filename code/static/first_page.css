@@ -1,0 +1,156 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+  li {
+    float: right;
+  }
+
+.navigation-bar, ul {
+    list-style-type: none;
+    /* display: inline-block; */
+    margin: 0;
+    padding-right: 0;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  li a {
+    display:block;
+    color:rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    color: rgba(139, 86, 50, 0.829);
+    /* background-color: rgb(92, 86, 86); */
+  }
+
+  .bgimg-1 {
+    background-image: url("./wallpaper_first_page.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-position: center;
+    background-size: cover;
+    background-image: url("./practice1.jpg");
+    min-height: 100%; */
+  }
+  /* #bg_img{
+    opacity: 0.;
+
+  } */
+
+  .fa-search{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 50px;
+    color: #fff;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 25px;
+  }
+  .search_box{
+    width: 50%;
+    position:relative;
+    
+  }
+  .search_box input[type="text"]{
+    width: 100%;
+    padding: 20px;
+    padding-right: 60px;
+    box-sizing: border-box;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+  }
+
+
+
+  /* form{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid white;
+    padding: 5px;
+    }
+
+    input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+    }
+
+    .fa{
+        box-sizing: border-box;
+        padding: 10px;
+        width: 42.5px;
+        height: 42.5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 50%;
+        color: #07051a;
+        text-align: center;
+        font-size: 1.2em;
+        transition: all 1s;
+    }
+
+    form:hover,
+    form:valid{
+        width: 200px;
+        cursor: pointer;
+    }
+
+    form:hover input,
+    form:valid input{
+        display: block;
+    }
+
+    form:hover .fa,
+    form:valid .fa{
+        background: #07051a;
+        color: white;
+    }
+
+    #clear-btn {
+    display: none;
+    position: absolute;
+    top: 70px;
+    bottom:0;
+    left: 0;
+    right: 0;
+    font-size: 20px;
+    color: white;
+    text-align: center; 
+    width: 100%;
+    } 
+
+    form:valid a {
+    display: block;
+    } */
