@@ -5,8 +5,6 @@ import urllib.request
 from urllib.parse import quote
 import json
 
-from data_upload import AWS_IP
-
 app = Flask(__name__)
 
 CORE_NAME = "final_proj"
