@@ -47,6 +47,13 @@ def language():
     print('Inside')
     text =  request.args.get('query')
     lang = request.args.get('language')
+    if(lang=="Hindi"):
+        lang="text_hi"
+    elif(lang=="Spanish"):
+        lang="text_es"
+    else:
+        lang="text_en"
+
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
     query = text.replace(':','\:')

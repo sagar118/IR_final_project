@@ -52,12 +52,28 @@ li a:hover {
   transform: translateY(-50%);
   right: 40px;
   color: rgb(0, 0, 0);
-  font-size: 25px;
   border-color: transparent;
   background-color: transparent;
+  font-size: 25px;
 }
 
-/* Fixed sidenav, full height */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000000;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+
+  
+   
+  /* Fixed sidenav, full height */
 /* .sidenav {
     /* height: 50%; 
     width: 150px;
@@ -72,20 +88,6 @@ li a:hover {
   }
    */
   /* Style the sidenav links and the dropdown button */
-  .sidenav a, .dropdown-btn {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #000000;
-    display: block;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    outline: none;
-  }
-   
   /* On mouse-over */
   /* .sidenav a:hover, .dropdown-btn:hover {
     color: rgba(139, 86, 50, 0.829);
