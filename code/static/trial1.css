@@ -111,5 +111,6 @@
     border: 1px solid #cccccc;
     -ms-word-break: normal;
     word-break: normal;
+    border-radius: 9px;
   }
   

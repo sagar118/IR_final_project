@@ -22,7 +22,7 @@ def search():
     text =  request.args.get('query')
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
-    query = text.replace(':','\:')
+    query = text.replace(':',r'\:')
     query = quote(query)
     query = query.replace(' ','%20')
     print('query: ',query)
@@ -57,7 +57,7 @@ def language():
 
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
-    query = text.replace(':','\:')
+    query = text.replace(':',r'\:')
     query = quote(query)
     query = query.replace(' ','%20')
     print('query: ',query)
@@ -74,3 +74,7 @@ def language():
     # for i in range(len(docs)):
     #     print(docs[i])
     return render_template('second_page_new.html', data = data, query = text, lang = lang1)
+
+if __name__ == '__main__':
+    app.debug=True
+    app.run()

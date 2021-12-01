@@ -63,7 +63,7 @@
   }
   .search_box input[type="text"]{
     width: 100%;
-    padding: 20px;
+    padding: 3%;
     padding-right: 60px;
     box-sizing: border-box;
     background: rgba(0,0,0,0.3);
