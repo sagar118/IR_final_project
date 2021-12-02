@@ -25,7 +25,8 @@ def search():
     query = query.replace(' ','%20')
     print('query: ',query)
     # inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&fl=id%2Cscore&wt=json&indent=true&defType=dismax&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
-    inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&rows=2147483647&defType=dismax&fq=poi_name%3A*&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
+    # inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&rows=2147483647&defType=dismax&fq=poi_name%3A*&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
+    inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&rows=2147483647&defType=dismax&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0'
     #2147483647
     print(inurl)
     data = urllib.request.urlopen(inurl)
@@ -33,6 +34,22 @@ def search():
     docs = json.load(data)['response']
     # print('DOCS: ',docs)
     data = docs['docs']
+    poi_data = []
+    general_data = []
+    for i in data:
+        # print(i)
+        # print(type(i))
+        if("poi_name" in i.keys()):
+            poi_data.append(i)
+        else:
+            general_data.append(i)
+    if(len(poi_data)>30):
+        data = poi_data
+    else:
+        n = 30 - len(poi_data)
+        additional_data = general_data[:n]
+        data = poi_data
+        data.extend(additional_data)
     print('final docs: ',type(data))
     # print(len(docs))
     # for i in range(len(docs)):
@@ -40,18 +57,65 @@ def search():
     return render_template('second_page_new.html', data = data, query = text)
 
 
-@app.route('/language')
-def language():
-    print('Inside')
+@app.route('/filtered')
+def filtered():
+    print('Inside language')
     text =  request.args.get('query')
-    lang1 = request.args.get('language')
-    lang = ""
-    if(lang1 == "Hindi"):
-        lang = "text_hi"
-    elif(lang1 == "Spanish"):
-        lang  = "text_es"
+    lang = request.args.get('language')
+    poi_name = request.args.get('POI NAME')
+    country = request.args.get('country')
+    country_copy = country.upper()
+    lang_copy = lang
+    poi_name_copy = poi_name
+
+    if(country_copy == 'COUNTRY'):
+        country_copy = ""
+    if(poi_name_copy == 'POI name'):
+        poi_name_copy = ""
+    if(lang_copy == 'Language'):
+        lang_copy = ""
+
+    fq = '&fq='
+    lang_text = ''
+    country_text = ''
+    poi_name_text = ''
+
+    if(lang_copy == 'Hindi'):
+        lang_copy = 'text_hi'
+    elif(lang_copy == 'Spanish'):
+        lang_copy  = 'text_es'
+    elif(lang_copy == 'English'):
+        lang_copy =  'text_en'
     else:
-        lang =  "text_en"
+        lang_copy = ''
+    
+    if(len(lang_copy)):
+        lang_text = lang_copy+'%3A*'
+    
+    if(len(country_copy)):
+        country_text = 'new_country%3A'+ country_copy
+    
+    if(len(poi_name_copy)):
+        poi_name_text = 'poi_name%3A' + poi_name_copy
+    
+    if(lang_text):
+        fq += lang_text
+    
+    if(country_text):
+        if(len(fq) > 4):
+            fq += '%20AND%20'
+        fq += country_text
+    
+    if(poi_name_text):
+        if(len(fq) > 4):
+            fq += '%20AND%20'
+        fq += poi_name_text
+    
+    if(len(fq) > 4):
+        fq += '&'
+    else:
+        fq = ''
+    print('fq: ',fq)
 
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
@@ -60,18 +124,35 @@ def language():
     query = query.replace(' ','%20')
     print('query: ',query)
     # inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&fl=id%2Cscore&wt=json&indent=true&defType=dismax&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
-    inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&rows=2147483647&defType=dismax&fq=poi_name%3A*%20AND%20'+str(lang)+'%3A*&qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
+    inurl = 'http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME)+'/select?q='+str(query)+'&rows=2147483647&defType=dismax&'+fq+'qf=tweet_hashtags^3%20text_en^6%20text_es^6%20text_hi^6%20text_en_copy%20text_es_copy%20text_hi_copy%20tweet_urls^0%20poi_name^100'
     print(inurl)
     data = urllib.request.urlopen(inurl)
     print(data)
     docs = json.load(data)['response']
     # print('DOCS: ',docs)
     data = docs['docs']
-    print('final docs: ',type(data))
+    poi_data = []
+    general_data = []
+    for i in data:
+        # print(i)
+        # print(type(i))
+        if("poi_name" in i.keys()):
+            poi_data.append(i)
+        else:
+            general_data.append(i)
+    if(len(poi_data)>30):
+        data = poi_data
+    else:
+        n = 30 - len(poi_data)
+        additional_data = general_data[:n]
+        data = poi_data
+        data.extend(additional_data)
+    print('final docs: ',type(data), len(data))
+    # print(data)
     # print(len(docs))
     # for i in range(len(docs)):
     #     print(docs[i])
-    return render_template('second_page_new.html', data = data, query = text, lang = lang1)
+    return render_template('second_page_new.html', data = data, query = text, lang = lang, poi_name = poi_name, country = country)
 
 @app.route('/overview')
 def overview():
