@@ -1,4 +1,4 @@
-from typing import Text
+# from typing import Text
 from flask import Flask, render_template, request
 import pysolr
 import urllib.request
@@ -156,12 +156,11 @@ def filtered():
 
 @app.route('/overview')
 def overview():
-    inurl = f"http://{AWS_IP}:8983/solr/{CORE_NAME}/select?q=*%3A*"
-    data = urllib.request.urlopen(inurl)
-    docs = json.load(data)['response']
-    data = docs['docs']
-    return render_template("overview.html", data=data)
+    f = open('graph_var.json')
+    data = json.load(f)
+    
+    return render_template("overview.html",data=data)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.debug=True
     app.run()
