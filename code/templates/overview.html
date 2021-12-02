@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static',filename='overview.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static',filename='trial1.css') }}"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<head>
+    <style>
+        body,
+        input,
+        label,
+        option {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
+    <title>500Success</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div class="navigation-bar">
+        <ul class="nav">
+            <li><a class="active" href="{{ url_for('overview') }}">Overview Analysis</a></li>
+            <li id="nav2"><a class="active" href="{{ url_for('home') }}">Home</a></li>
+            <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">
+        </ul>
+    </div>
+
+    <script>
+        var data = {{ data|tojson }};
+        console.log(typeof(data));
+        console.log(data[0]);
+    </script>
+</body>
+
+</html>

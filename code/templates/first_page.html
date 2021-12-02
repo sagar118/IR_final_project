@@ -16,24 +16,23 @@
 </head>
 <body>
     <div class="navigation-bar">
-    <ul>
-        <li id="nav"><a href="#overview">Overview Analysis</a></li>
-        <li id="nav2"><a class="active" href="{{ url_for('home') }}">Home</a></li>
-        <img src="{{ url_for('static',filename='logo_used.png') }}" height="50" width="130">
-      </ul>
-      </div>
+        <ul>
+            <li><a class="active" href="{{ url_for('overview') }}">Overview Analysis</a></li>
+            <li id="nav2"><a class="active" href="{{ url_for('home') }}">Home</a></li>
+            <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">
+        </ul>
+    </div>
 
-      <div class="bgimg-1" id="bg_img">
-          <div class= "search_box">
-              <form action="{{ url_for('search') }}" method="get" id="search_form">
-              <input type="text" name="query" placeholder=" what are you looking for?">
-              <!-- <div onclick="submit_form()"> -->
-               <button class="fas fa-search"></button>
-               
-              <!-- </div> -->
-              </form>
-          </div>
-      </div>
+    <div class="bgimg-1" id="bg_img">
+        <div class= "search_box">
+            <form action="{{ url_for('search') }}" method="get" id="search_form">
+                <input type="text" name="query" placeholder=" what are you looking for?">
+                <!-- <div onclick="submit_form()"> -->
+                <button class="fas fa-search"></button>
+            <!-- </div> -->
+            </form>
+        </div>
+    </div>
      
 <script>
 // function submit_form(){

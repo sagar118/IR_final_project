@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.nav>li{
+    float:right;
+}
+
+.navigation-bar, ul {
+    list-style-type: none;
+    /* display: inline-block; */
+    margin: 0;
+    padding-right: 0;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.nav>li>a {
+display:block;
+color:rgb(0, 0, 0);
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+li a:hover {
+color: rgba(139, 86, 50, 0.829);
+}

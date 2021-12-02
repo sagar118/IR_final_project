@@ -8,19 +8,17 @@ import json
 app = Flask(__name__)
 
 CORE_NAME = "final_proj"
-AWS_IP = "3.144.182.191"
+AWS_IP = "3.145.29.87"
 
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('first_page.html')
 
-
 @app.route('/search')
 def search():
     print('Inside')
     text =  request.args.get('query')
-    # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
     query = text.replace(':',r'\:')
     query = quote(query)
@@ -74,6 +72,14 @@ def language():
     # for i in range(len(docs)):
     #     print(docs[i])
     return render_template('second_page_new.html', data = data, query = text, lang = lang1)
+
+@app.route('/overview')
+def overview():
+    inurl = f"http://{AWS_IP}:8983/solr/{CORE_NAME}/select?q=*%3A*"
+    data = urllib.request.urlopen(inurl)
+    docs = json.load(data)['response']
+    data = docs['docs']
+    return render_template("overview.html", data=data)
 
 if __name__ == '__main__':
     app.debug=True
