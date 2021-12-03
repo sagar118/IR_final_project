@@ -162,3 +162,8 @@ li a:hover {
   /* margin-left: 150px; */
   float:left;
 }
+
+.graphs{
+  float: left;
+  margin-left: 10%;
+}

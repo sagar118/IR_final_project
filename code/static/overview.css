@@ -24,3 +24,13 @@ text-decoration: none;
 li a:hover {
 color: rgba(139, 86, 50, 0.829);
 }
+
+.vaccine_graph {
+    width: 50%;
+    float: left;
+}
+
+.language_graph {
+    width: 50%;
+    float: right;
+}

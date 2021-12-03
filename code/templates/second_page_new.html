@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='trial1.css') }}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>
+<script src="plotly-2.6.3.min.js"></script>
 
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"> integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
 
@@ -153,6 +155,12 @@
                 <ul id="myList"></ul>
             </div>
         </div>
+        <div class = "graphs">
+            <div id='tweet_count_graph' name='tweet_count_graph'></div>
+            <div id='tweet_lang_graph' name='tweet_lang_graph'></div>
+            <div id='tweet_country_graph' name='tweet_country_graph'></div>
+            <div id='tweet_poi_graph' name='tweet_poi_graph'></div>
+        </div>
         
     </div>
     
@@ -188,6 +196,34 @@
     if(country.length != 0){
         document.getElementById("country").value = '{{ country }}';
     }
+
+    tweet_count_graph = document.getElementById("tweet_count_graph")
+    tweet_count_data = {{ tweet_count_data|tojson }}
+    var tweet_count_layout = {
+        title: 'Tweets count'
+    }
+    Plotly.newPlot(tweet_count_graph, tweet_count_data, tweet_count_layout);
+
+    tweet_lang_graph = document.getElementById("tweet_lang_graph")
+    tweet_lang_data = {{ tweet_lang_data|tojson }}
+    var tweet_lang_layout = {
+        title: 'Language tweets count'
+    }
+    Plotly.newPlot(tweet_lang_graph, tweet_lang_data, tweet_lang_layout);
+
+    tweet_country_graph = document.getElementById("tweet_country_graph")
+    tweet_country_data = {{ tweet_country_data|tojson }}
+    var tweet_country_layout = {
+        title: 'Country tweets count'
+    }
+    Plotly.newPlot(tweet_country_graph, tweet_country_data, tweet_country_layout);
+
+    tweet_poi_graph = document.getElementById("tweet_poi_graph")
+    poi_tweet_count = {{ poi_tweet_count|tojson }}
+    var tweet_poi_layout = {
+        title: 'POI tweets count'
+    }
+    Plotly.newPlot(tweet_poi_graph, poi_tweet_count, tweet_poi_layout);
 
     var data = {{ data|tojson }};
     // for(i=0; i<50; i++)
@@ -298,6 +334,7 @@
         //     div.innerHTML = 'Name: ' + data[i].username + ' ' + data[i].tweet_text
         //     mainContainer.appendChild(div);
         // }
+        
       
 </script>
 </body>

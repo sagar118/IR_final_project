@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 
 CORE_NAME = "final_proj"
-AWS_IP = "3.145.29.87"
+AWS_IP = "18.191.164.75"
 
 @app.route('/')
 @app.route('/home')
@@ -20,7 +20,7 @@ def search():
     print('Inside')
     text =  request.args.get('query')
     print(text)
-    query = text.replace(':',r'\:')
+    query = text.replace(':','\:')
     query = quote(query)
     query = query.replace(' ','%20')
     print('query: ',query)
@@ -36,13 +36,43 @@ def search():
     data = docs['docs']
     poi_data = []
     general_data = []
+    poi_tweet_count = 0
+    general_tweet_count = 0
+    en_count = 0
+    es_count = 0
+    hi_count = 0
+    us_count = 0
+    india_count = 0
+    mexico_count = 0
+    poi_count = {}
     for i in data:
         # print(i)
         # print(type(i))
+        if(i["tweet_lang"] == 'es'):
+            es_count += 1
+        elif(i["tweet_lang"] == 'hi'):
+            hi_count += 1
+        else:
+            en_count += 1
+        
+        if(i["new_country"] == 'MEXICO'):
+            mexico_count += 1
+        elif(i["new_country"] == 'INDIA'):
+            india_count += 1
+        else:
+            us_count += 1
+
         if("poi_name" in i.keys()):
             poi_data.append(i)
+            poi_tweet_count += 1
+            x = i.get("poi_name")
+            if(x in poi_count.keys()):
+                poi_count[x] += 1
+            else:
+                poi_count[x] = 1
         else:
             general_data.append(i)
+            general_tweet_count += 1
     if(len(poi_data)>30):
         data = poi_data
     else:
@@ -54,7 +84,39 @@ def search():
     # print(len(docs))
     # for i in range(len(docs)):
     #     print(docs[i])
-    return render_template('second_page_new.html', data = data, query = text)
+
+    tweet_count_data = [{
+        'x': ['POI tweets', 'General population tweets'],
+        'y': [poi_tweet_count, general_tweet_count],
+        'type': 'bar'
+    }]
+    
+    tweet_lang_data = [{
+        'x': ['English', 'Spanish', 'Hindi'],
+        'y': [en_count, es_count, hi_count],
+        'type': 'bar'
+    }]
+
+    tweet_country_data = [{
+        'x': ['USA', 'Mexico', 'India'],
+        'y': [us_count, mexico_count, india_count],
+        'type': 'bar'
+    }]
+
+    poi_name = []
+    name_count = []
+    for name in poi_count.keys():
+        poi_name.append(name)
+        c = poi_count.get(name)
+        name_count.append(c)
+    
+    poi_tweet_count = [{
+        'x': poi_name,
+        'y': name_count,
+        'type': 'bar'
+    }]
+
+    return render_template('second_page_new.html', data = data, query = text, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
 
 
 @app.route('/filtered')
@@ -68,11 +130,11 @@ def filtered():
     lang_copy = lang
     poi_name_copy = poi_name
 
-    if(country_copy == 'COUNTRY'):
+    if(country_copy == 'COUNTRY'or country_copy == None):
         country_copy = ""
-    if(poi_name_copy == 'POI name'):
+    if(poi_name_copy == 'POI name' or poi_name_copy == None):
         poi_name_copy = ""
-    if(lang_copy == 'Language'):
+    if(lang_copy == 'Language' or lang_copy == None):
         lang_copy = ""
 
     fq = '&fq='
@@ -119,7 +181,7 @@ def filtered():
 
     # solr = pysolr.Solr('http://'+str(AWS_IP)+':8983/solr/'+str(CORE_NAME))
     print(text)
-    query = text.replace(':',r'\:')
+    query = text.replace(':','\:')
     query = quote(query)
     query = query.replace(' ','%20')
     print('query: ',query)
@@ -133,13 +195,43 @@ def filtered():
     data = docs['docs']
     poi_data = []
     general_data = []
+    poi_tweet_count = 0
+    general_tweet_count = 0
+    en_count = 0
+    es_count = 0
+    hi_count = 0
+    us_count = 0
+    india_count = 0
+    mexico_count = 0
+    poi_count = {}
     for i in data:
         # print(i)
         # print(type(i))
+        if(i["tweet_lang"] == 'es'):
+            es_count += 1
+        elif(i["tweet_lang"] == 'hi'):
+            hi_count += 1
+        else:
+            en_count += 1
+
+        if(i["new_country"] == 'MEXICO'):
+            mexico_count += 1
+        elif(i["new_country"] == 'INDIA'):
+            india_count += 1
+        else:
+            us_count += 1
+        
         if("poi_name" in i.keys()):
             poi_data.append(i)
+            poi_tweet_count += 1
+            x = i.get("poi_name")
+            if(x in poi_count.keys()):
+                poi_count[x] += 1
+            else:
+                poi_count[x] = 1
         else:
             general_data.append(i)
+            general_tweet_count += 1
     if(len(poi_data)>30):
         data = poi_data
     else:
@@ -152,7 +244,39 @@ def filtered():
     # print(len(docs))
     # for i in range(len(docs)):
     #     print(docs[i])
-    return render_template('second_page_new.html', data = data, query = text, lang = lang, poi_name = poi_name, country = country)
+
+    tweet_count_data = [{
+        'x': ['POI tweets', 'General population tweets'],
+        'y': [poi_tweet_count, general_tweet_count],
+        'type': 'bar'
+    }]
+
+    tweet_lang_data = [{
+        'x': ['English', 'Spanish', 'Hindi'],
+        'y': [en_count, es_count, hi_count],
+        'type': 'bar'
+    }]
+
+    tweet_country_data = [{
+        'x': ['USA', 'Mexico', 'India'],
+        'y': [us_count, mexico_count, india_count],
+        'type': 'bar'
+    }]
+
+    poi_names = []
+    name_count = []
+    for name in poi_count.keys():
+        poi_names.append(name)
+        c = poi_count.get(name)
+        name_count.append(c)
+    
+    poi_tweet_count = [{
+        'x': poi_names,
+        'y': name_count,
+        'type': 'bar'
+    }]
+
+    return render_template('second_page_new.html', data = data, query = text, lang = lang, poi_name = poi_name, country = country, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
 
 @app.route('/overview')
 def overview():

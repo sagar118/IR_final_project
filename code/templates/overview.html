@@ -37,23 +37,28 @@
     <div id="country_graph"></div>
     <div id="poi_graph"></div>
     <div id="graphs">
-    <div id="covid_vaccine_graph"></div>
-    <div id="language_graph"></div>
+    <div class="pie_charts">
+        <div class="vaccine_graph" id="covid_vaccine_graph"></div>
+        <div class="language_graph" id="language_graph"></div>
+    </div>
     </div>
 
 
     <script>
     var data = {{ data|tojson }};
 
-        var graph_country = [
-        {
-            x: data['country_names'],
-            y: data['country_count'],
-            type: 'bar'
-        }
-        ];
+    var graph_country = [
+    {
+        x: data['country_names'],
+        y: data['country_count'],
+        type: 'lines+markers'
+    }
+    ];
+    var graph_country_layout = {
+        title: 'Count of tweets according to Country'
+    }
 
-    Plotly.newPlot('country_graph', graph_country);
+    Plotly.newPlot('country_graph', graph_country, graph_country_layout);
 
     var graph_poi= [
         {
@@ -61,9 +66,12 @@
             y: data['poi_count'],
             type: 'bar'
         }
-        ];
-
-    Plotly.newPlot('poi_graph',graph_poi);
+    ];
+    var graph_poi_layout = {
+        title: 'Count of tweets according to POIs'
+    }
+    
+    Plotly.newPlot('poi_graph', graph_poi, graph_poi_layout);
 
     var graph_covid_vaccine= [
         {
@@ -71,13 +79,14 @@
             values: data['vaccine_covid_count'],
             type: 'pie'
         }
-        ];
-        var layout = {
-            height: 400,
-            width: 500
-        };
+    ];
+    var layout_topic = {
+        height: 400,
+        width: 500,
+        title: 'Count of tweets according to Topic'
+    };
 
-    Plotly.newPlot('covid_vaccine_graph', graph_covid_vaccine, layout );
+    Plotly.newPlot('covid_vaccine_graph', graph_covid_vaccine, layout_topic );
 
     var graph_language= [
         {
@@ -86,12 +95,13 @@
             type: 'pie'
         }
         ];
-        var layout = {
-            height: 400,
-            width: 500
-        };
+    var layout_language = {
+        height: 400,
+        width: 500,
+        title: 'Count of tweets according to Language'
+    };
 
-    Plotly.newPlot('language_graph', graph_language, layout );
+    Plotly.newPlot('language_graph', graph_language, layout_language);
     </script>
 </body>
 
