@@ -150,7 +150,7 @@ li a:hover {
 }
 
 .wrapper{
-  width: 150px;
+  width: 10%;
   float: left;
   position: relative;
 
@@ -161,9 +161,10 @@ li a:hover {
 .maindata{
   /* margin-left: 150px; */
   float:left;
+  width: 58%;
 }
 
 .graphs{
   float: left;
-  margin-left: 10%;
+  width: 32%;
 }

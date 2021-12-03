@@ -34,13 +34,15 @@
             <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">
         </ul>
     </div>
-    <div id="country_graph"></div>
-    <div id="poi_graph"></div>
-    <div id="graphs">
-    <div class="pie_charts">
-        <div class="vaccine_graph" id="covid_vaccine_graph"></div>
-        <div class="language_graph" id="language_graph"></div>
-    </div>
+    <div class = graphs>
+        <div id="country_graph"></div>
+        <div id="poi_graph"></div>
+        <div id="graphs">
+            <div class="pie_charts">
+                <div class="vaccine_graph" id="covid_vaccine_graph"></div>
+                <div class="language_graph" id="language_graph"></div>
+            </div>
+        </div>
     </div>
 
 
@@ -49,9 +51,13 @@
 
     var graph_country = [
     {
-        x: data['country_names'],
-        y: data['country_count'],
-        type: 'lines+markers'
+        y: data['country_names'],
+        x: data['country_count'],
+        type: 'bar',
+        marker: {
+            color: ['rgba(185, 30, 32, 1)', 'rgba(78, 94, 248, 1)', 'rgba(27, 171, 35, 0.8)']
+        },
+        orientation: 'h'
     }
     ];
     var graph_country_layout = {
@@ -81,8 +87,8 @@
         }
     ];
     var layout_topic = {
-        height: 400,
-        width: 500,
+        // height: 400,
+        // width: 500,
         title: 'Count of tweets according to Topic'
     };
 
@@ -96,8 +102,8 @@
         }
         ];
     var layout_language = {
-        height: 400,
-        width: 500,
+        // height: 400,
+        // width: 500,
         title: 'Count of tweets according to Language'
     };
 
