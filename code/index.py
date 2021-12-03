@@ -259,20 +259,26 @@ def filtered():
         'y': [poi_tweet_count, general_tweet_count],
         'type': 'bar',
         'marker':{
-            'color': ['rgba(204,204,204,1)', 'rgba(222,45,38,1)']
+            'color': ['rgba(185, 30, 32, 1)', 'rgba(78, 94, 248, 1)']
         },
     }]
 
     tweet_lang_data = [{
         'x': ['English', 'Spanish', 'Hindi'],
         'y': [en_count, es_count, hi_count],
-        'type': 'bar'
+        'type': 'bar',
+        'marker':{
+            'color': ['rgba(185, 30, 32, 1)', 'rgba(78, 94, 248, 1)', 'rgba(27, 171, 35, 0.8)']
+        },
     }]
 
     tweet_country_data = [{
         'x': ['USA', 'Mexico', 'India'],
         'y': [us_count, mexico_count, india_count],
-        'type': 'bar'
+        'type': 'bar',
+        'marker':{
+            'color': ['rgba(185, 30, 32, 1)', 'rgba(78, 94, 248, 1)', 'rgba(27, 171, 35, 0.8)']
+        },
     }]
 
     poi_names = []

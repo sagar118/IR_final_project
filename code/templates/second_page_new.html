@@ -239,19 +239,35 @@
             if(item['poi_name']){
                 if(item['tweet_text']){
                     if(item['tweet_urls']){
-                        li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        if(item['verified'] == 1.0){
+                            li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        } else{
+                            li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        }
                     }
                     else{
-                        li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']
+                        if(item['verified'] == 1.0){
+                            li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
+                        } else {
+                            li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']
+                        }
                     }
                 }
             }else {
                 if(item['tweet_text']){
                     if(item['tweet_urls']){
-                        li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        if(item['verified'] == 1.0) {
+                            li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        } else{
+                            li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+                        }
                     }
                     else{
-                        li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']
+                        if(item['verified'] == 1.0){
+                            li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
+                        }else {
+                            li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']    
+                        }
                     }
                 }
             }
