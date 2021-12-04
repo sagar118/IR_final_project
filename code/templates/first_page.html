@@ -17,6 +17,7 @@
 <body>
     <div class="navigation-bar">
         <ul>
+            <li><a class="active" href="{{ url_for('poi_analysis') }}">POI Analysis</a></li>
             <li><a class="active" href="{{ url_for('overview') }}">Overview Analysis</a></li>
             <li id="nav2"><a class="active" href="{{ url_for('home') }}">Home</a></li>
             <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">

@@ -1,0 +1,33 @@
+
+/* #graphs{
+    width: 100%;
+} */
+/* .graphs>#statsdiv{
+    width: 50%;
+    float: left;
+}
+
+.graphs>#sentimant_poi{
+    width: 50%;
+    float: left;
+}  */
+#country_poi_graph{
+    margin-left: 3%;
+
+}
+.statsclass {
+    width: 30%;
+    float: left;
+    margin-left: 11%;
+}
+
+.sentimentclass {
+    width: 30%;
+    float: left;
+    margin-left: 18%;
+}
+
+#example-d{
+    position:inherit !important;
+    margin-left: 3%;
+}

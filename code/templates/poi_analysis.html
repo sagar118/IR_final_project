@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static',filename='first_page.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='poi_analysis.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>
+<script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+
+<head>
+\    <title>POI Analysis</title>
+    <style>
+                body,input{font-family: "Raleway", sans-serif}
+
+    </style>
+</head>
+<body>
+    <div class="wholebody">
+    <div class="navigation-bar">
+        <ul class="nav">
+            <li><a class="active" href="{{ url_for('poi_analysis') }}">POI Analysis</a></li>
+            <li><a class="active" href="{{ url_for('overview') }}">Overview Analysis</a></li>
+            <li><a class="active" href="{{ url_for('home') }}">Home</a></li>
+            <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">
+        </ul>
+    </div>
+    <!-- <div class="showcase__section" id="bubble"> -->
+        <!-- <div class="spacer --small"></div> -->
+        <!-- <div class="control-row"> -->
+            POI Names: <select class="poidata">
+            </select>
+          <!-- </div> -->
+        <!-- <div id="bubbleplots"> -->
+          <!-- <div class="bubbleplot" data-num="0"> -->
+            <div class="graphs">
+                <div class="statsclass" id="statsdiv"></div>
+                <div class="sentimentclass" id="sentimant_poi"></div>
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+            </div>
+            <!-- <div style="width: 10%;float: left;"></div> -->
+            <div id="example-d"></div>
+            <div id="country_poi_graph"></div>
+
+      <!-- <div id="usa_covid_curve"></div> -->
+
+            
+<script>
+// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv', function(err, rows){
+// function unpack(rows, key) {
+//     return rows.map(function(row) { return row[key]; });
+// }
+var poi_data = {{ poi_data|tojson }};
+var graph_data = {{ graph_data|tojson }};
+var country_poi = {{ country_poi|tojson}};
+var cal = new CalHeatMap();
+
+
+
+// Dropdown data
+// var allCountryNames = unpack(rows, 'country'),
+//     allYear = unpack(rows, 'year'),
+//     allGdp = unpack(rows, 'gdpPercap'),
+//     listofCountries = [],
+
+// var stats = poi_data[name+'_stats']; 
+// var stats_count = poi_data[name+'stats_count'];
+var listofPoiNames = graph_data['poi_names'];
+var currentPOI;
+var currentStats = [];
+var currentStatsCount = [];
+
+// for (var i = 0; i < allCountryNames.length; i++ ){
+//     if (listofCountries.indexOf(allCountryNames[i]) === -1 ){
+//         listofCountries.push(allCountryNames[i]);
+//     }
+// }
+
+
+function getPOIData(chosenPOI) {
+    currentStats = poi_data[chosenPOI+'_stats_count'];
+    currentStatsCount = poi_data[chosenPOI+'_stats'];
+    current_covid_stats = poi_data[chosenPOI+'_covid_curve_date'];
+    current_covid_poi = poi_data[chosenPOI+'_covid_curve_new_cases'];
+    current_vaccine_stats= poi_data[chosenPOI+'_vaccine_curve_date'];
+    current_vaccine_poi=poi_data[chosenPOI+'_vaccine_curve_new_cases'];
+    // for (var i = 0 ; i < allCountryNames.length ; i++){
+    //     if ( allCountryNames[i] === chosenCountry ) {
+    //         currentGdp.push(allGdp[i]);
+    //         currentYear.push(allYear[i]);
+    //     }
+    // }
+};
+
+// Default Country Data
+setBubblePlot('CDCgov');
+initialCalMap()
+
+function setBubblePlot(chosenPOI) {
+    getPOIData(chosenPOI);
+
+    // var graph_covid_vaccine= [
+    //     {
+    //         labels: data['vaccine_covid'],
+    //         values: data['vaccine_covid_count'],
+    //         type: 'pie'
+    //     }
+    // ];
+    // var layout_topic = {
+    //     // height: 400,
+    //     // width: 500,
+    //     title: 'Count of tweets according to Topic'
+    // };
+    var config = {responsive: true}
+
+
+    var trace1 = [{
+        y: currentStats,
+        x: currentStatsCount,
+        type: 'bar',
+        marker: {
+            color: ['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)']
+        },
+    }];
+
+    var layout_stats = {
+        title:'Types of tweets',
+        height: 500,
+        width: 600
+    };
+
+
+    var sentimant_poi = {
+        x: poi_data[chosenPOI+'_sentiment_name'],
+        y: poi_data[chosenPOI+'_avg_sentiment'],
+        type: 'bar',
+    };
+
+    // var data = [sentimant_poi];
+
+    var layout1 = {
+        title: 'Overall average sentiment analysis',
+        height: 500, //400
+        width: 400   //480
+    };
+
+    var covid_poi_marker_graph = {
+        x: current_covid_stats,
+        y: current_covid_poi,
+        mode: 'markers',
+    //     marker: {
+    //   color: 'rgb(78, 173, 148)',
+    //   size: 12
+    // },
+    // connectgaps: true
+
+    };
+
+    var vaccine_poi_marker_graph = {
+        x: current_vaccine_stats,
+        y: current_vaccine_poi,
+        mode: 'markers',
+    //     marker: {
+    //   color: 'rgb(78, 173, 148)',
+    //   size: 12
+    // },
+    // connectgaps: true
+
+    };
+ 
+    // country = country_poi[chosenPOI];
+   
+    var country_poi_graph = {
+        x: poi_data[country_poi[chosenPOI]+'_covid_curve_date'],
+        y: poi_data[country_poi[chosenPOI]+'_covid_curve_newcases'],
+        mode: 'lines',
+    };
+
+    var data_stats=[country_poi_graph,covid_poi_marker_graph,vaccine_poi_marker_graph];
+    // console.log()
+    // data_stats.push(country_poi_graph,country_poi_marker_graph);
+
+    var layout2 = {
+        title:country_poi[chosenPOI]+' covid curve cases',
+        // height: 400, //400
+        // width: 1300   //480
+    };
+
+    Plotly.newPlot('statsdiv', trace1, layout_stats, config);
+    Plotly.newPlot('sentimant_poi', [sentimant_poi], layout1, config);
+    Plotly.newPlot('country_poi_graph', data_stats, layout2);
+};
+
+function initialCalMap(chosenPOI){
+    cal.init({
+                itemSelector: "#example-d",
+                domain: "year",
+                subDomain: "day",
+                data: poi_data["CDCgov_calmap"],
+                start: new Date(2020, 0),
+                cellSize: 10,
+                range: 2,
+                legend: [20, 40, 60, 80]
+            });
+
+}
+
+function updatecalmap(chosenPOI){
+    cal.update(poi_data[chosenPOI + "_calmap"]);
+}
+
+var poiSelector = document.querySelector('.poidata');
+
+function assignOptions(textArray, selector) {
+    for (var i = 0; i < textArray.length;  i++) {
+        var currentOption = document.createElement('option');
+        currentOption.text = textArray[i];
+        selector.appendChild(currentOption);
+    }
+}
+
+assignOptions(listofPoiNames, poiSelector);
+
+function updatePOI(){
+    updatecalmap(poiSelector.value);
+    setBubblePlot(poiSelector.value);
+}
+
+poiSelector.addEventListener('change', updatePOI, false);
+
+// var trace1 = {
+//         x: poi_data['USA_covid_curve_date'],
+//         y: poi_data['USA_covid_curve_newcases'],
+//         mode: 'lines',
+//     };
+
+//     var data = [trace1];
+
+//     var layout = {
+//         title:'USA covid curve cases',
+//         height: 400, //400
+//         width: 1000   //480
+//     };
+
+//     Plotly.newPlot('usa_covid_curve', data, layout);
+
+
+</script>
+</body>

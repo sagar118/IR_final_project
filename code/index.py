@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 
 CORE_NAME = "final_proj"
-AWS_IP = "18.191.164.75"
+AWS_IP = "3.138.141.215"
 
 @app.route('/')
 @app.route('/home')
@@ -298,10 +298,23 @@ def filtered():
 
 @app.route('/overview')
 def overview():
-    f = open('graph_var.json')
+    f = open('../graph_var.json')
     data = json.load(f)
     
     return render_template("overview.html",data=data)
+
+@app.route('/poi_analysis')
+def poi_analysis():
+    f = open('../poi_graph.json')
+    poi_data = json.load(f)
+
+    f = open('../graph_var.json')
+    graph_data = json.load(f)
+
+    f = open('../country_poi.json')
+    country_poi = json.load(f)
+    
+    return render_template("poi_analysis.html",poi_data=poi_data,graph_data=graph_data,country_poi=country_poi)
 
 if __name__ == "__main__":
     app.debug=True
