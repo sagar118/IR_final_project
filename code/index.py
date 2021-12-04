@@ -34,8 +34,6 @@ def search():
     docs = json.load(data)['response']
     # print('DOCS: ',docs)
     data = docs['docs']
-    poi_data = []
-    general_data = []
     poi_tweet_count = 0
     general_tweet_count = 0
     en_count = 0
@@ -45,9 +43,14 @@ def search():
     india_count = 0
     mexico_count = 0
     poi_count = {}
+    display = []
+    display_poi = []
+    display_general = []
     for i in data:
         # print(i)
         # print(type(i))
+        tweet_of_poi = 0
+        display_text = ''
         if(i["tweet_lang"] == 'es'):
             es_count += 1
         elif(i["tweet_lang"] == 'hi'):
@@ -63,24 +66,78 @@ def search():
             us_count += 1
 
         if("poi_name" in i.keys()):
-            poi_data.append(i)
+            tweet_of_poi = 1
             poi_tweet_count += 1
             x = i.get("poi_name")
             if(x in poi_count.keys()):
                 poi_count[x] += 1
             else:
                 poi_count[x] = 1
+            if(i["twitter_url"] != 'NaN'):
+                display_text += '<a href=\"'
+                display_text += i.get("twitter_url")
+                display_text += '\">'
+                display_text += x
+                display_text += '</a>'
+            else:
+                display_text += x
         else:
-            general_data.append(i)
             general_tweet_count += 1
-    if(len(poi_data)>30):
-        data = poi_data
+            username = 'Twitter User'
+            if("username" in i.keys()):
+                username = i.get("username")
+            if(i["twitter_url"] != 'NaN'):
+                display_text += '<a href=\"'
+                display_text += i.get("twitter_url")
+                display_text += '\">'
+                display_text += username
+                display_text += '</a>'
+            else:
+                display_text += str(username)
+        
+        if(i.get("verified")):
+            display_text += '''<img src=\"/static/verified.png\" height=\"15\"><br/>'''
+        tweet_text = i.get("tweet_text")
+        display_text += tweet_text
+        display_text += '<br/>'
+        if("tweet_urls" in i.keys()):
+            urls = i.get("tweet_urls")
+            for url in urls:
+                if(url[-1] != '/'):
+                    display_text += '<a href=\"'
+                    display_text += url
+                    display_text += '\">'
+                    display_text += url
+                    display_text += '</a>'
+                    display_text += '<br/>'
+        if("tweet_sentiment_sentiment" in i.keys() and "tweet_sentiment_proba" in i.keys()):
+            display_text += 'Tweet Sentiment: '
+            display_text += i.get("tweet_sentiment_sentiment")
+            display_text += '<br/>'
+            display_text += 'Sentiment Probability: '
+            display_text += str(i.get("tweet_sentiment_proba"))
+            display_text += '<br/>'
+        if("reply_Positive_text" in i.keys()):
+            display_text += 'Best Positive reply: '
+            display_text += i.get("reply_Positive_text")
+            display_text += '<br/>'
+        if("reply_negative_text" in i.keys()):
+            display_text += 'Best Negative reply: '
+            display_text += i.get("reply_negative_text")
+            display_text += '<br/>'
+        if(tweet_of_poi):
+            display_poi.append(display_text)
+        else:
+            display_general.append(display_text)
+    
+    if(len(display_poi)>30):
+        display = display_poi
     else:
-        n = 30 - len(poi_data)
-        additional_data = general_data[:n]
-        data = poi_data
-        data.extend(additional_data)
-    print('final docs: ',type(data))
+        n = 30 - len(display_poi)
+        additional_data = display_general[:n]
+        display = display_poi
+        display.extend(additional_data)
+    # print('final docs: ',type(display))
     # print(len(docs))
     # for i in range(len(docs)):
     #     print(docs[i])
@@ -125,7 +182,7 @@ def search():
         'type': 'bar'
     }]
 
-    return render_template('second_page_new.html', data = data, query = text, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
+    return render_template('second_page_new.html', data = display, query = text, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
 
 
 @app.route('/filtered')
@@ -202,8 +259,6 @@ def filtered():
     docs = json.load(data)['response']
     # print('DOCS: ',docs)
     data = docs['docs']
-    poi_data = []
-    general_data = []
     poi_tweet_count = 0
     general_tweet_count = 0
     en_count = 0
@@ -213,9 +268,14 @@ def filtered():
     india_count = 0
     mexico_count = 0
     poi_count = {}
+    display = []
+    display_poi = []
+    display_general = []
     for i in data:
         # print(i)
         # print(type(i))
+        tweet_of_poi = 0
+        display_text = ''
         if(i["tweet_lang"] == 'es'):
             es_count += 1
         elif(i["tweet_lang"] == 'hi'):
@@ -231,24 +291,77 @@ def filtered():
             us_count += 1
         
         if("poi_name" in i.keys()):
-            poi_data.append(i)
+            tweet_of_poi = 1
             poi_tweet_count += 1
             x = i.get("poi_name")
             if(x in poi_count.keys()):
                 poi_count[x] += 1
             else:
                 poi_count[x] = 1
+            if(i["twitter_url"] != 'NaN'):
+                display_text += '<a href=\"'
+                display_text += i.get("twitter_url")
+                display_text += '\">'
+                display_text += x
+                display_text += '</a>'
+            else:
+                display_text += x
         else:
-            general_data.append(i)
             general_tweet_count += 1
-    if(len(poi_data)>30):
-        data = poi_data
+            username = 'Twitter User'
+            if("username" in i.keys()):
+                username = i.get("username")
+            if(i["twitter_url"] != 'NaN'):
+                display_text += '<a href=\"'
+                display_text += i.get("twitter_url")
+                display_text += '\">'
+                display_text += username
+                display_text += '</a>'
+            else:
+                display_text += str(username)
+        
+        if(i.get("verified")):
+            display_text += '''<img src=\"/static/verified.png\" height=\"15\"><br/>'''
+        tweet_text = i.get("tweet_text")
+        display_text += tweet_text
+        display_text += '<br/>'
+        if("tweet_urls" in i.keys()):
+            urls = i.get("tweet_urls")
+            for url in urls:
+                if(url[-1] != '/'):
+                    display_text += '<a href=\"'
+                    display_text += url
+                    display_text += '\">'
+                    display_text += url
+                    display_text += '</a>'
+                    display_text += '<br/>'
+        if("tweet_sentiment_sentiment" in i.keys() and "tweet_sentiment_proba" in i.keys()):
+            display_text += 'Tweet Sentiment: '
+            display_text += i.get("tweet_sentiment_sentiment")
+            display_text += '<br/>'
+            display_text += 'Sentiment Probability: '
+            display_text += str(i.get("tweet_sentiment_proba"))
+            display_text += '<br/>'
+        if("reply_Positive_text" in i.keys()):
+            display_text += 'Best Positive reply: '
+            display_text += i.get("reply_Positive_text")
+            display_text += '<br/>'
+        if("reply_negative_text" in i.keys()):
+            display_text += 'Best Negative reply: '
+            display_text += i.get("reply_negative_text")
+            display_text += '<br/>'
+        if(tweet_of_poi):
+            display_poi.append(display_text)
+        else:
+            display_general.append(display_text)
+    
+    if(len(display_poi)>30):
+        display = display_poi
     else:
-        n = 30 - len(poi_data)
-        additional_data = general_data[:n]
-        data = poi_data
-        data.extend(additional_data)
-    print('final docs: ',type(data), len(data))
+        n = 30 - len(display_poi)
+        additional_data = display_general[:n]
+        display = display_poi
+        display.extend(additional_data)
     # print(data)
     # print(len(docs))
     # for i in range(len(docs)):
@@ -294,24 +407,24 @@ def filtered():
         'type': 'bar'
     }]
 
-    return render_template('second_page_new.html', data = data, query = text, lang = lang, poi_name = poi_name, country = country, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
+    return render_template('second_page_new.html', data = display, query = text, lang = lang, poi_name = poi_name, country = country, tweet_count_data = tweet_count_data, tweet_lang_data = tweet_lang_data, tweet_country_data = tweet_country_data, poi_tweet_count = poi_tweet_count)
 
 @app.route('/overview')
 def overview():
-    f = open('../graph_var.json')
+    f = open('./graph_var.json')
     data = json.load(f)
     
     return render_template("overview.html",data=data)
 
 @app.route('/poi_analysis')
 def poi_analysis():
-    f = open('../poi_graph.json')
+    f = open('./poi_graph.json')
     poi_data = json.load(f)
 
-    f = open('../graph_var.json')
+    f = open('./graph_var.json')
     graph_data = json.load(f)
 
-    f = open('../country_poi.json')
+    f = open('./country_poi.json')
     country_poi = json.load(f)
     
     return render_template("poi_analysis.html",poi_data=poi_data,graph_data=graph_data,country_poi=country_poi)

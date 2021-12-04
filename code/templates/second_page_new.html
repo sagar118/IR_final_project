@@ -20,7 +20,7 @@
             font-family: "Raleway", sans-serif
         }
     </style>
-    <title>500Success</title>
+    <title>Search</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
@@ -227,6 +227,8 @@
     Plotly.newPlot(tweet_poi_graph, poi_tweet_count, tweet_poi_layout);
 
     var data = {{ data|tojson }};
+    console.log(typeof(data))
+    console.log(data[1])
     // for(i=0; i<50; i++)
     // {
     //     console.log(data[i])
@@ -237,41 +239,41 @@
         let li = document.createElement("li");
         if(item!=undefined){
             li.id = "list_item"
-            if(item['poi_name']){
-                if(item['tweet_text']){
-                    if(item['tweet_urls']){
-                        if(item['verified'] == 1.0){
-                            li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
-                        } else{
-                            li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
-                        }
-                    }
-                    else{
-                        if(item['verified'] == 1.0){
-                            li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
-                        } else {
-                            li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']
-                        }
-                    }
-                }
-            }else {
-                if(item['tweet_text']){
-                    if(item['tweet_urls']){
-                        if(item['verified'] == 1.0) {
-                            li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
-                        } else{
-                            li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
-                        }
-                    }
-                    else{
-                        if(item['verified'] == 1.0){
-                            li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
-                        }else {
-                            li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']    
-                        }
-                    }
-                }
-            }
+            // if(item['poi_name']){
+            //     if(item['tweet_text']){
+            //         if(item['tweet_urls']){
+            //             if(item['verified'] == 1.0){
+            //                 li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+            //             } else{
+            //                 li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+            //             }
+            //         }
+            //         else{
+            //             if(item['verified'] == 1.0){
+            //                 li.innerHTML = item['poi_name']+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
+            //             } else {
+            //                 li.innerHTML = item['poi_name']+"<br/>"+"<br/>"+item['tweet_text']
+            //             }
+            //         }
+            //     }
+            // }else {
+            //     if(item['tweet_text']){
+            //         if(item['tweet_urls']){
+            //             if(item['verified'] == 1.0) {
+            //                 li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+            //             } else{
+            //                 li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']+"<br/>"+"<br/>"+"<a href ="+item['tweet_urls'][0]+">"+item['tweet_urls'][0]+"</a>"+"<br/>";
+            //             }
+            //         }
+            //         else{
+            //             if(item['verified'] == 1.0){
+            //                 li.innerHTML = 'Twitter User'+"<img src=\"{{ url_for('static',filename='verified.png') }}\" height=\"15\" width=\"17\">"+"<br/>"+"<br/>"+item['tweet_text']
+            //             }else {
+            //                 li.innerHTML = 'Twitter User'+"<br/>"+"<br/>"+item['tweet_text']    
+            //             }
+            //         }
+            //     }
+            // }
             // if(item.){
             //     li.innerHTML = "<a href ="+item.tweet_urls+">"+item.tweet_urls+"</a>"+"<br/>"+item.tweet_text;
             //     if(item.poi_name!=undefined){
@@ -293,6 +295,7 @@
             // li.innerText = item; 
             // console.log(typeof(item['country']), item['country'])
             // li.innerHTML = item['poi_name'];
+            li.innerHTML = item
             list.appendChild(li);
         }
     });
