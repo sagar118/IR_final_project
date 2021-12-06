@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>
 <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='trial1.css') }}">
 <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -24,12 +25,14 @@
             <li><a class="active" href="{{ url_for('poi_analysis') }}">POI Analysis</a></li>
             <li><a class="active" href="{{ url_for('overview') }}">Overview Analysis</a></li>
             <li><a class="active" href="{{ url_for('home') }}">Home</a></li>
-            <img src="{{ url_for('static',filename='logo.png') }}" height="50" width="130">
+            <img src="{{ url_for('static',filename='logo_second_page.png') }}" height="50" width="130">
         </ul>
     </div>
     <!-- <div class="showcase__section" id="bubble"> -->
         <!-- <div class="spacer --small"></div> -->
         <!-- <div class="control-row"> -->
+        <br/>
+        <br/>
             POI Names: <select class="poidata">
             </select>
           <!-- </div> -->
@@ -138,6 +141,7 @@ function setBubblePlot(chosenPOI) {
         x: poi_data[chosenPOI+'_sentiment_name'],
         y: poi_data[chosenPOI+'_avg_sentiment'],
         type: 'bar',
+        marker:{color:['rgb(199, 135, 137)','rgb(106, 126, 176)']}//'rgb(186, 196, 94)']},//'rgb(106, 126, 176)'],}
     };
 
     // var data = [sentimant_poi];
@@ -146,12 +150,15 @@ function setBubblePlot(chosenPOI) {
         title: 'Overall average sentiment analysis',
         height: 500, //400
         width: 400   //480
+        
     };
 
     var covid_poi_marker_graph = {
         x: current_covid_stats,
         y: current_covid_poi,
         mode: 'markers',
+        name:'covid tweets',
+        marker: {color: 'rgb(142,124,195 )'}
     //     marker: {
     //   color: 'rgb(78, 173, 148)',
     //   size: 12
@@ -164,6 +171,8 @@ function setBubblePlot(chosenPOI) {
         x: current_vaccine_stats,
         y: current_vaccine_poi,
         mode: 'markers',
+        name:'vaccine tweets',
+        marker: {color: 'rgb(219, 103, 161)'}
     //     marker: {
     //   color: 'rgb(78, 173, 148)',
     //   size: 12
@@ -178,6 +187,8 @@ function setBubblePlot(chosenPOI) {
         x: poi_data[country_poi[chosenPOI]+'_covid_curve_date'],
         y: poi_data[country_poi[chosenPOI]+'_covid_curve_newcases'],
         mode: 'lines',
+        name:'new cases',
+        line: {color: 'rgb(78, 173, 148)', width:1.5}
     };
 
     var data_stats=[country_poi_graph,covid_poi_marker_graph,vaccine_poi_marker_graph];

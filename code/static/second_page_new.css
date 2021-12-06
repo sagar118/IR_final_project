@@ -5,6 +5,8 @@
 }
 #myList {
   width: 94%;
+  list-style-type:none;
+
 }
 #myList>#list_item{
   padding-top: 2%;
@@ -26,25 +28,26 @@
 .data{
   margin-top: 18px;
 }
-.navigation-bar, ul {
+.navigation-bar>ul {
   list-style-type: none;
   /* display: inline-block; */
   margin: 0;
   padding-right: 0;
   overflow: hidden;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0); 
+      border-radius: 6px;
 }
 
 .nav>li>a {
   display:block;
-  color:rgb(0, 0, 0);
+  color:rgb(255, 255, 255);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
 li a:hover {
-  color: rgba(139, 86, 50, 0.829);
+  color: rgba(206, 206, 206, 0.829);
   /* background-color: rgb(92, 86, 86); */
 }
 
@@ -133,6 +136,7 @@ li a:hover {
     width: 50%;
     position:relative;
     padding-left: 25%;
+    margin-top: 2%;
     
 }
 

@@ -11,6 +11,23 @@
     width: 50%;
     float: left;
 }  */
+
+
+
+ul{
+    background-color: rgb(0 0 0);
+    border-radius: 6px;
+}
+
+.nav>li>a {
+    display:block;
+    color:rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    
+    }
+    
 #country_poi_graph{
     margin-left: 3%;
 
@@ -31,3 +48,6 @@
     position:inherit !important;
     margin-left: 3%;
 }
+li a:hover {
+    color: rgba(206, 206, 206, 0.829);
+    }
