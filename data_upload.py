@@ -11,11 +11,11 @@ def delete_core(core=CORE_NAME):
     print(os.system('sudo su - solr -c "/opt/solr/bin/solr delete -c {core}"'.format(core=core)))
 
 def create_core(core=CORE_NAME):
-    print('hello')
+    # print('hello')
     print(os.system(
         'sudo su - solr -c "/opt/solr/bin/solr create -c {core} -n data_driven_schema_configs"'.format(
             core=core)))
-    print('done')
+    # print('done')
 
 class Indexer:
     def __init__(self):
@@ -277,8 +277,8 @@ if __name__ == "__main__":
     # print('Fields added')
 
     f = open("final_data5.json","r", encoding='utf8')
-    print('opening file')
+    # print('opening file')
     data = json.load(f)
-    print('Data loaded')
+    # print('Data loaded')
     i.create_documents(data)
-    print('Done')
+    # print('Done')

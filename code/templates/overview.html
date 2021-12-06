@@ -55,7 +55,7 @@
         x: data['country_count'],
         type: 'bar',
         marker: {
-            color: ['rgba(185, 30, 32, 1)', 'rgba(78, 94, 248, 1)', 'rgba(27, 171, 35, 0.8)']
+            color: ['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)']
         },
         orientation: 'h'
     }
@@ -70,7 +70,10 @@
         {
             x: data['poi_names'],
             y: data['poi_count'],
-            type: 'bar'
+            type: 'bar',
+            marker: {
+                color: 'rgb(142,124,195)'
+            }
         }
     ];
     var graph_poi_layout = {
@@ -78,12 +81,16 @@
     }
     
     Plotly.newPlot('poi_graph', graph_poi, graph_poi_layout);
+    var ultimateColors = ['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)'];
 
     var graph_covid_vaccine= [
         {
             labels: data['vaccine_covid'],
             values: data['vaccine_covid_count'],
-            type: 'pie'
+            type: 'pie',
+            marker: {
+                colors: ultimateColors
+            }
         }
     ];
     var layout_topic = {
@@ -98,7 +105,10 @@
         {
             labels: data['languages'],
             values: data['language_count'],
-            type: 'pie'
+            type: 'pie',
+            marker: {
+                colors: ultimateColors
+            }
         }
         ];
     var layout_language = {
