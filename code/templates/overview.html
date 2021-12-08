@@ -72,7 +72,8 @@
             y: data['poi_count'],
             type: 'bar',
             marker: {
-                color: 'rgb(142,124,195)'
+                // color: 'rgb(142,124,195)'
+                color: ['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(219, 103, 161)', 'rgb(219, 103, 161)', 'rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(78, 173, 148)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)', 'rgb(219, 103, 161)', 'rgb(78, 173, 148)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(219, 103, 161)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(219, 103, 161)', 'rgb(219, 103, 161)', 'rgb(219, 103, 161)', 'rgb(142,124,195)', 'rgb(142,124,195)', 'rgb(219, 103, 161)', 'rgb(142,124,195)', 'rgb(219, 103, 161)']
             }
         }
     ];
@@ -96,7 +97,7 @@
     var layout_topic = {
         // height: 400,
         // width: 500,
-        title: 'Count of tweets according to Topic'
+        title: 'Average number of tweet per type'
     };
 
     Plotly.newPlot('covid_vaccine_graph', graph_covid_vaccine, layout_topic );
@@ -114,7 +115,7 @@
     var layout_language = {
         // height: 400,
         // width: 500,
-        title: 'Count of tweets according to Language'
+        title: 'Average no of tweets according to Language'
     };
 
     Plotly.newPlot('language_graph', graph_language, layout_language);
