@@ -15,6 +15,7 @@
     <title>POI Analysis</title>
     <style>
                 body,input{font-family: "Raleway", sans-serif}
+                p{ font-size: 18px;}
 
     </style>
 </head>
@@ -46,6 +47,7 @@
       <!-- </div> -->
             </div>
             <!-- <div style="width: 10%;float: left;"></div> -->
+            <p><b>Datewise Number of tweets by POI</b></p>
             <div id="example-d"></div>
             <div id="country_poi_graph"></div>
 
@@ -147,7 +149,7 @@ function setBubblePlot(chosenPOI) {
     // var data = [sentimant_poi];
 
     var layout1 = {
-        title: 'Overall average sentiment analysis',
+        title: 'Overall average sentiments',
         height: 500, //400
         width: 400   //480
         
@@ -172,7 +174,7 @@ function setBubblePlot(chosenPOI) {
         y: current_vaccine_poi,
         mode: 'markers',
         name:'vaccine tweets',
-        marker: {color: 'rgb(219, 103, 161)'}
+        marker: {color: 'rgb(191, 23, 4)'}
     //     marker: {
     //   color: 'rgb(78, 173, 148)',
     //   size: 12
@@ -188,7 +190,7 @@ function setBubblePlot(chosenPOI) {
         y: poi_data[country_poi[chosenPOI]+'_covid_curve_newcases'],
         mode: 'lines',
         name:'new cases',
-        line: {color: 'rgb(78, 173, 148)', width:1.5}
+        line: {color: 'rgb(150, 212, 180)', width:1.5}
     };
 
     var data_stats=[country_poi_graph,covid_poi_marker_graph,vaccine_poi_marker_graph];
@@ -211,6 +213,7 @@ function initialCalMap(chosenPOI){
                 itemSelector: "#example-d",
                 domain: "year",
                 subDomain: "day",
+                // title:'Datewise Number of tweets by POI',
                 data: poi_data["CDCgov_calmap"],
                 start: new Date(2020, 0),
                 cellSize: 10,

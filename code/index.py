@@ -11,7 +11,7 @@ import pickle
 app = Flask(__name__)
 
 CORE_NAME = "final_proj"
-AWS_IP = "3.145.118.203"
+AWS_IP = "18.216.119.38"
 
 @app.route('/')
 @app.route('/home')
@@ -465,8 +465,11 @@ def filtered():
 def overview():
     f = open('../graph_var.json')
     data = json.load(f)
-    
-    return render_template("overview.html",data=data)
+
+    f = open('../general_pop_vaccine_covid_sentiment.json')
+    data_sentiment = json.load(f)
+
+    return render_template("overview.html",data=data,data_sentiment=data_sentiment)
 
 @app.route('/poi_analysis')
 def poi_analysis():

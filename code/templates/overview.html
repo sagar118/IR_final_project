@@ -37,17 +37,28 @@
     <div class = "graphs">
         <div id="country_graph"></div>
         <div id="poi_graph"></div>
+        <div class="bar_charts">
+            <div class="covid_sentiment_graph" id="covid_gen_graph"></div>
+            <div class="vaccine_sentiment_graph" id="vaccine_gen_graph"></div>
+        </div>
+        <figure>
+            <figcaption class="caption">Vaccine Hesitancy Word Cloud</figcaption>
+            <img src="../static/vaccine_hesitancy.png" alt="Trulli" width="500" height="333" class="center">
+        </figure>
+        
+        <!-- <div class="vaccine_hesitancy"></div> -->
         <div id="graphs">
             <div class="pie_charts">
                 <div class="vaccine_graph" id="covid_vaccine_graph"></div>
                 <div class="language_graph" id="language_graph"></div>
             </div>
-        </div>
+            </div>
     </div>
 
 
     <script>
     var data = {{ data|tojson }};
+    var data_sentiment = {{ data_sentiment|tojson}};
 
     var graph_country = [
     {
@@ -82,7 +93,7 @@
     }
     
     Plotly.newPlot('poi_graph', graph_poi, graph_poi_layout);
-    var ultimateColors = ['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)'];
+    var ultimateColors = ['rgb(109, 191, 172)','rgb(222, 169, 178)','rgb(186, 132, 191)']//179, 191, 109['rgb(142,124,195)', 'rgb(78, 173, 148)', 'rgb(219, 103, 161)'];
 
     var graph_covid_vaccine= [
         {
@@ -97,7 +108,7 @@
     var layout_topic = {
         // height: 400,
         // width: 500,
-        title: 'Average number of tweet per type'
+        title: 'Percentage of tweets per type'
     };
 
     Plotly.newPlot('covid_vaccine_graph', graph_covid_vaccine, layout_topic );
@@ -115,10 +126,42 @@
     var layout_language = {
         // height: 400,
         // width: 500,
-        title: 'Average no of tweets according to Language'
+        title: 'Percentage of tweets according to Language'
     };
 
     Plotly.newPlot('language_graph', graph_language, layout_language);
+
+    var graph_covid_sentiment= [
+        {
+            x: data_sentiment['covid_sentiment'],
+            y: data_sentiment['covid_sentiment_values'],
+            type: 'bar',
+            marker: {
+                color:['rgb(199, 135, 137)','rgb(106, 126, 176)']
+            }
+        }
+    ];
+    var graph_covid_layout = {
+        title: ' Covid sentiments by general population'
+    }
+    
+    Plotly.newPlot('covid_gen_graph', graph_covid_sentiment, graph_covid_layout);
+
+    var graph_vaccine_sentiment= [
+        {
+            x: data_sentiment['vaccine_sentiment'],
+            y: data_sentiment['vaccine_sentiment_values'],
+            type: 'bar',
+            marker: {
+                color: ['rgb(191, 139, 65)','rgb(138, 134, 134)']
+            }
+        }
+    ];
+    var graph_vaccine_layout = {
+        title: 'Vaccine sentiments by general population'
+    }
+    
+    Plotly.newPlot('vaccine_gen_graph', graph_vaccine_sentiment, graph_vaccine_layout);
     </script>
 </body>
 

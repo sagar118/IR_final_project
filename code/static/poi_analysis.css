@@ -12,7 +12,11 @@
     float: left;
 }  */
 
-
+p{
+    display: inline-block;
+    float: right;
+    width: 58%;
+}
 
 ul{
     background-color: rgb(0 0 0);
@@ -46,7 +50,7 @@ ul{
 
 #example-d{
     position:inherit !important;
-    margin-left: 3%;
+    /* margin-left: 1%; */
 }
 li a:hover {
     color: rgba(206, 206, 206, 0.829);

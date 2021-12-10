@@ -1,1 +1,1 @@
-"{\"covid_sentiment\": [\"Negative\", \"Positive\"], \"covid_sentiment_values\": [0.9402030885772871, 0.8732495174295473], \"vaccine_sentiment\": [\"Negative\", \"Positive\"], \"vaccine_sentiment_values\": [0.9636573460404236, 0.8852793215106352]}"
+{"covid_sentiment": ["Negative", "Positive"], "covid_sentiment_values": [0.9402030885772871, 0.8732495174295473], "vaccine_sentiment": ["Negative", "Positive"], "vaccine_sentiment_values": [0.9636573460404236, 0.8852793215106352]}
