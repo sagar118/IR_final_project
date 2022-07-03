@@ -1,105 +1,76 @@
-# IR_final_project
-Implement an end-to-end IR system
+# End-to-End Information Retrieval (IR) Project
+The aim of the project was to create an end-to-end web search engine along with an analytics dashboard. The search engine used covid and vaccine twitter tweets for indexing and used the Okapi BM 25 model to retrieve relevant tweets for a given query. The backend was built in flask, as for the analytics dashboard, we used Plotly.js for innovative story telling and interactive data plots.
+
+## The overall structure of the search is as follows:
+- Technologies/frameworks used in frontend: Plotly.js, CSS and HTML.
+- Technologies/frameworks used in backend: Flask, Solr, NLTK, Keras, Flair
 
 ## Dataset:
-- At the end of project 1, you had at least 50K tweets
-- 500 tweets/POI for 5 POIs/country, where country being USA, India and Mexico
-- The language of the tweets also ranges in these country specific languages (English, Hindi and Spanish)
-- At least 1 reply to a minimum of 1,500 Covid vaccine related tweets.
-- At least 10 replies to a minimum of 300 Covid-19 related POI tweets.
+- At lease 50,000 tweets in total with not more that 15% being retweets.
+  a. At least 500 tweets per POI(7,500 total for all 15 POIs). Out of the 500 tweets per POI, at least 50 related to Covid-19 and the Covie-19 vaccines.
+  b. At least 32,500 tweets from the general population, and related to the Covid-19 vaccines.
+  c. The rest 10,000 tweets must be replies to either point b or point a, constrained by:
+    - At least 1,500 tweets from b should have 1 reply
+    - At lest 10 replies or a minimum of 300 Covid-19 related tweets by the POI (Minimum 3,000 replies in total for all POI)
+- At a high level, there are:
+  - At least 5,000 tweets per language i.e., English, Hindi and Spanish
+  - At least 5,000 tweets per country
 
-## Basic Requirements:
-1. Content Analysis:
-- Analyze the attitude of the general population towards Covid vaccines.
-- Analyze the impact of Covid related political rhetoric on the common masses.
+Tweets from 5 POIs per country, where
+  - 1 of the POIs is the official government health agency of the country
+  - Rest of the POIs should be from the current ruling or opposition party, where 1 of them should be the president/prime minister of the country
+In total, there are at least 15 POIs.
 
-2. Build a search engine and analytics UI:
-- Enhance knowledge of building end-to-end IR system by implementing a search engine
-- Develop a web UI to present your content analysis
+## The User Experience Flow:
+Upon entering the website, the user is presented with a clean interface to enter a query. This is rendered via HTML and CSS. Upon entering the query, the query is sent to the flask server, where the following happens:
+1. We perform stop word removal for all languages.
+2. The cleaned query is then sent to Solr to retrieve the appropriate results.
+3. Once the “all” the results are retrieved, we compute the global statistics and create a view for the search query result page. The following graphs are generated based on the query and filters:
+  a. Tweet Count of POIs and General Population for the query.
+  b. Language tweet count.
+  c. Country-wise tweet count.
+  d. Tweet count for POIs whose tweets have been retrieved.
+4. We also present the following filters to the user to narrow down the tweets they are looking for:
+  a. Language wise tweets.
+  b. Country wise tweets.
+  c. POI name wise tweets.
+5. Once the graphs are generated, we then take the top 40 tweets to present to the user.
+  a. If POI tweets are available, the top tweets are dominated by those, followed by the general population tweets. If we have 40 tweets by POIs, all tweets will be from POIs.
+6. The following components are displayed as part of the tweet:
+  a. User-name: If available, otherwise Twitter User (POI names are always available, hence POI name will always be present).
+  b. If the tweet is by a POI, then a hyperlink to the tweet will be present.
+  c. Whether a user is verified or not.
+  d. The tweet text.
+  e. The tweet sentiment and the probability of the sentiment.
+  f. Best positive reply if present, best negative reply if present.
 
-## Bonus:
-1. Identifying excerpts of covid vaccine related disinformation or vaccine hesitancy
-2. Identifying excerpts of persuasion against covid vaccine related disinformation or vaccine hesitancy
+This summarizes the search page view
+Moving on the Analytics dashboard (Overview Page), we have precomputed the required statistics and loaded them before serving it to the user. Here are the graphs that are presented there:
 
-## Content/Topic Analysis
-- Compare number of Covid and non Covid related tweets made by the POIs of each country and correlate the Covid curve in that country with it
-- Is there any correlation between what POIs are tweeting and the COVID curve in the country?
-- Perform sentiment analysis, topic analysis, stance detection .etc. on the Covid vaccine tweets to gauge the attitude or stance of people towards the vaccines.
-- Perform sentiment analysis on the reply to Covid related POI tweets to gauge the impact of the tweet.
-- Determine excerpts of vaccine hesitancy, vaccine related disinformation, persuasion for or against taking the vaccines .etc.
-- Be creative and come up with more use cases!
+1. Overall count of tweets per country.
+2. Overall count of tweets per POI.
+3. Average sentiment for covid and vaccine by general population
+4. Vaccine Hesitancy word cloud
+5. Percentage of tweet as per Vaccine/Covid/Neither.
+6. Percentage of tweet as per language.
 
-## Visualizations: Insights/Analytics
-- Main purpose is to visualize the insights from the last step, into a meaningful story.
-- You can do additional processing such as location analysis, keyword  analysis, topic modelling, etc.
-- You can ingest additional data such as news articles, youtube videos.
-- Eg: extract news articles which talk about any incidents that could be related to the POI’s tweets on COVID, or incidents talking about declining vaccination rates.
-- Decide on appropriate visualizations (charts, graphs, maps)
+We have precomputed the sentiment separately and uploaded to Solr. The following methods were used to do sentiment analysis for the different languages.
 
-## Search Engine: Faceted Search
-- Create a webpage to perform search operations on your indexed data
-- Ideally, left side of the web page should render faceted search functionality. There should also be a search bar at the top of the page, like Google search, where you can  search your dataset based on keyword.
-- You may also implement network analysis to rank the retrieved documents.
-- You are encouraged to implement more search functionality and demo various interesting search results.
+1. English: We use a python library called flair, which is a state-of-the-art NLP library that performs sentiment analysis for a given dataset. It handles Named Entity Recognition at the backend and gives us the sentiment probability for a given tweet.
+2. Hindi: We used a keras LSTM model to predict the sentiment of a given tweet. We used a publicly available data for creating the training and testing dataset.
+3. Spanish: We used an off-the shelf library called sentiment-analysis-spanish. It readily gave us the sentiments without any need for training.
 
-## Final Deliverables:
-- A short demo video (at most 3 minutes)
-- A working web application URL hosted on AWS
-- A short report detailing all work done and member contributions.
-- You can use the double column ACL-IJCNLP 2021 or single column ICLR 2021 Latex template.
-- You can also use word, if you are not comfortable with Latex.
-- The report should contain the following broad sections: (i) Introduction, (ii) Methodology (iii) Sample screenshots (iv) Work breakdown by teammates (v) Conclusion
-- More details on how to submit will be shared closer to the deadline.
+Once the sentiments were computed, the dataset was transformed to fit the narrative in the analytics dashboard.
+For vaccine hesitancy we tried to find keywords that indicates towards vaccine hesitancy and tried to find them in our tweets. If found, we classified those tweets as vaccine hesitancy. Some of those keywords are: 
+“mybodymychoice”, “NoVaccineForMe”, “NoForcedVaccines”, “stopmandatoryvaccination”, “forcedvaccines”, “covidvaccineispoison”, “VaccinesAreNotTheAnswer”, “medicalfreedomofchoice”, etc. In total there were 55 keywords we used to find the results.
 
-## Grading
-- Grading is based on relevancy, language spread of served results, ranking techniques
-and impact measures.
-- Points distribution:
-  - Meet basic requirements – 7 points
-  - Meet bonus requirements – 3 points
-  - Visualizations and storytelling via UI – 10 points
-  - Search Engine – 7 points
-  - Report – 3 points
-- We will select best performing groups to present their work in the class
-- 7 groups will be selected to present their work in 8 minutes with additional 2 minutes for Q&A
-- Each team member of the selected groups will receive 2 bonus points.
+Based on the tweets that were marked true for vaccine hesitancy, we tried to clean the tweet text and create a word cloud of the words that help us understand the most frequent words used in those kinds of tweets.
 
-## Project Summary
-- The project is fairly open-ended and permits usage of any third party tools that you deem relevant
-- Primary objective is to encourage students to apply IR concepts in detecting and analyzing influence of Twitter personalities in the social sphere.
-- Wide latitude in evaluating your projects
-- UI, algorithms, research – several areas to innovate upon
-
-## Timeline
-1. 10th November: Project released.
-2. 15th November: Deadline for team formation.
-3. 6th December, before 5 PM: Interested groups submit videos for class presentations. Sign-up sheet will be released 3 days before.
-4. 8th December: In-class presentation for selected groups (2 bonus points).
-5. 10th December: Final submissions due.
-
-## Resources:
-- Machine learning / clustering / topic modelling
-  - Python : Scikit-learn, nltk (NLP specific)
-  - Java : Spark/Mahout, Weka, Mallet
-  - C++ : Shogun, mlpack
-- Word embeddings (pre-trained): 
-  - http://nlp.stanford.edu/projects/glove/
-  - Pointers to download links: https://www.quora.com/Where-can-I-find-some-pre-trained-word-vectors-for-natural-language-processing-understanding
-- Translation : Google and Bing APIs, several free to download dictionaries
-- Mutlifaceted API libraries:
-  - Microsoft Cognitive Services API : https://azure.microsoft.com/en-us/services/cognitive-services/
-  - Google Cloud Natural Language API : https://cloud.google.com/natural-language/
-- Sentiment Analysis:
-  - NCSU tweet sentiment visualization app: https://www.csc2.ncsu.edu/faculty/healey/tweet_viz/tweet_app/
-  - Textbox:  https://machinebox.io/docs/textbox?utm_source=medium&utm_medium=post&utm_campaign=fakenewspost
-
-- Visualization / analytics examples and ideas
-  - http://www.tableau.com/stories/gallery
-  - https://www.census.gov/dataviz/
-  - https://app.powerbi.com/visuals/
-  - https://github.com/d3/d3/wiki/Gallery
-  - https://developers.google.com/chart/interactive/docs/gallery
-  - https://developers.google.com/chart/interactive/docs/more_charts
+Finally, we have created another dashboard for POI analysis. Here are the graphs displayed over there (Based on filter on POI names):
+1. Type of tweets count (Vaccine/Covid/Neither)
+2. Overall average sentiment for POI.
+3. Calendar Heatmap for Date-wise number for POI.
+4. Curve for new Covid cases based on country, upon which we are displaying instances of covid and vaccine tweets for POI.
 
 ## Demo
-- Sample demo: https://youtu.be/GoXhy6SKhxg
+- Uploaded in the repository named `Video_demonstration.mp4`
